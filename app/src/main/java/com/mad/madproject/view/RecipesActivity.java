@@ -16,30 +16,32 @@ public class RecipesActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     String result;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sec);
-        mRecyclerView = (RecyclerView)findViewById(R.id.reclyView);
+        mRecyclerView = (RecyclerView) findViewById(R.id.reclyView);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-       // mAdapter = new MyAdapter();
+        // mAdapter = new MyAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
 //        result = getIntent().getExtras().getString("Recipe");
-        TextView textview = (TextView)findViewById(R.id.resultTV);
+        TextView textview = (TextView) findViewById(R.id.resultTV);
 //         textview.setText(result);
 
     }
+
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-        public static class MyViewHolder extends RecyclerView.ViewHolder {
+        public class MyViewHolder extends RecyclerView.ViewHolder {
 
             public MyViewHolder(@NonNull View itemView) {
                 super(itemView);
             }
         }
-    }
+
         @NonNull
         @Override
         public MyAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -56,3 +58,4 @@ public class RecipesActivity extends AppCompatActivity {
             return 0;
         }
     }
+}
