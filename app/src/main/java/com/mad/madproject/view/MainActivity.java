@@ -8,17 +8,21 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.mad.madproject.R;
+import com.mad.madproject.StaticContent;
 import com.mad.madproject.contract.MainContract;
-import com.mad.madproject.model.recipe;
+import com.mad.madproject.model.Recipe;
+import com.mad.madproject.model.recipeRelated.remote.RecipeRemoteDataSource;
+import com.mad.madproject.presenter.MainPresenter;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MainContract.View{
-    public Button mButton;
-    EditText mRecipe;
+public class MainActivity extends AppCompatActivity implements MainContract.View {
+
+    private Button mButton;
+    private EditText mRecipe;
 
     private MainContract.Presenter mPresenter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,32 +34,25 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             @Override
             public void onClick(View view) {
                 String recipe = mRecipe.getText().toString();
-                mPresenter.getSearch(recipe);
-                /**/
+                mPresenter.getSearchRecipies(recipe);
             }
         });
+
+        //this code will make sure that Presenter is properly initiated, with the singleton code of RecipeRemoteDatasource and the view it self.
+        mPresenter = new MainPresenter(RecipeRemoteDataSource.getInstance(),this);
     }
 
     @Override
-    public void search() {
-
-    }
-
-    @Override
-    public void getPopularRecipe() {
-
-    }
-
-    @Override
-    public void openDetailActivity(List<recipe> recipes) {
+    public void getSearchResult(List<Recipe> recipes) {
         Intent intent = new Intent(MainActivity.this,RecipesActivity.class);
-        intent.putExtra("Recipe",recipe);
+        intent.setClass(getApplicationContext(), RecipesActivity.class);
+        intent.putExtra(StaticContent.Model.RECIPE, (Serializable) recipes);
         startActivity(intent);
     }
 
     @Override
     public void setPresenter(MainContract.Presenter presenter) {
-     mPresenter = presenter;
+        mPresenter = presenter;
     }
 
 

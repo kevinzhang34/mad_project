@@ -1,5 +1,5 @@
 package com.mad.madproject;
 
-public interface baseView<T>{
+public interface BaseView<T>{
     void setPresenter(T presenter);
 }

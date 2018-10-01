@@ -1,14 +1,14 @@
 package com.mad.madproject.contract;
 
-import com.mad.madproject.basePresenter;
-import com.mad.madproject.baseView;
+import com.mad.madproject.BasePresenter;
+import com.mad.madproject.BaseView;
 
 public interface RecipesContract {
-    interface View extends baseView<Presenter> {
+    interface View extends BaseView<Presenter> {
         void showDetail();
     }
 
-    interface Presenter extends basePresenter {
+    interface Presenter extends BasePresenter {
         void getDetail();
     }
 }

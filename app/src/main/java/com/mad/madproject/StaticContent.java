@@ -8,4 +8,8 @@ public interface StaticContent {
         String recipeAPI = "get";
         String apiKEY = "62faf53331c64544196c73615054989a";
     }
+
+    interface Model {
+        String RECIPE = "recipe";
+    }
 }

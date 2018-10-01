@@ -1,5 +1,5 @@
 package com.mad.madproject;
 
-public interface basePresenter<T>{
+public interface BasePresenter<T>{
     void start();
 }

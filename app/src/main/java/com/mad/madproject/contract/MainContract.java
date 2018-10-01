@@ -1,20 +1,18 @@
 package com.mad.madproject.contract;
 
-import com.mad.madproject.basePresenter;
-import com.mad.madproject.baseView;
-import com.mad.madproject.model.recipe;
+import com.mad.madproject.BasePresenter;
+import com.mad.madproject.BaseView;
+import com.mad.madproject.model.Recipe;
 
 import java.util.List;
 
 public interface MainContract {
-    interface View extends baseView<Presenter> {
-        void search();
-        void getPopularRecipe();
-        void openDetailActivity(List<recipe> recipes);
+    interface View extends BaseView<Presenter> {
+        void getSearchResult(List<Recipe> recipes);
     }
 
-    interface Presenter extends basePresenter {
-        void getSearch(String ingredients);
+    interface Presenter extends BasePresenter {
+        void getSearchRecipies(String ingredients);
         void getPopular();
     }
 }
