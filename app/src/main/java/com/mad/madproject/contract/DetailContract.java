@@ -8,5 +8,6 @@ public interface DetailContract {
     }
 
     interface Presenter extends basePresenter {
+        void fetch();
     }
 }

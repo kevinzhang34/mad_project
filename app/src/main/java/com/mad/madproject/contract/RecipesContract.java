@@ -5,8 +5,10 @@ import com.mad.madproject.baseView;
 
 public interface RecipesContract {
     interface View extends baseView<Presenter> {
+        void showDetail();
     }
 
     interface Presenter extends basePresenter {
+        void getDetail();
     }
 }

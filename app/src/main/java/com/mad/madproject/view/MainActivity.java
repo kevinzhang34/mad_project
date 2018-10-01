@@ -8,10 +8,16 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.mad.madproject.R;
+import com.mad.madproject.contract.MainContract;
+import com.mad.madproject.model.recipe;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements MainContract.View{
     public Button mButton;
     EditText mRecipe;
+
+    private MainContract.Presenter mPresenter;
 
 
     @Override
@@ -24,10 +30,33 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String recipe = mRecipe.getText().toString();
-                Intent intent = new Intent(MainActivity.this,SecActivity.class);
-                intent.putExtra("Recipe",recipe);
-                startActivity(intent);
+                mPresenter.getSearch(recipe);
+                /**/
             }
         });
     }
+
+    @Override
+    public void search() {
+
+    }
+
+    @Override
+    public void getPopularRecipe() {
+
+    }
+
+    @Override
+    public void openDetailActivity(List<recipe> recipes) {
+        Intent intent = new Intent(MainActivity.this,RecipesActivity.class);
+        intent.putExtra("Recipe",recipe);
+        startActivity(intent);
+    }
+
+    @Override
+    public void setPresenter(MainContract.Presenter presenter) {
+     mPresenter = presenter;
+    }
+
+
 }

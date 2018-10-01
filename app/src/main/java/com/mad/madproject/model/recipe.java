@@ -1,4 +1,5 @@
 package com.mad.madproject.model;
 
-public class recipes {
+public class recipe {
+
 }
