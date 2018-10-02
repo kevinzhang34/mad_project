@@ -1,5 +1,6 @@
 package com.mad.madproject.model.recipeRelated.remote;
 
+import android.util.Log;
 import com.google.gson.Gson;
 import com.mad.madproject.StaticContent;
 import com.mad.madproject.model.Recipe;
@@ -36,17 +37,18 @@ public class RecipeRemoteDataSource implements RecipeDataSource {
     public List<Recipe> SearchByIngradians(String Ingradians, final GetRecipeCallback callback) {
         RecipeService request = mRetrofit.create(RecipeService.class);
         Convertor convertor = new Convertor();
-        Call<List<Recipe>> repos = request.listRecipes(StaticContent.httpURL.apiKEY, Ingradians);
+        Call<List<Recipe>> repos = request.listRecipes(StaticContent.httpURL.apiKEY,Ingradians);
         //the enqueue method will send the request to the destination url.
         repos.enqueue(new Callback<List<Recipe>>() {
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
+                Log.d("Response success with response body: ", response.body().toString());
                 callback.onRecipeLoaded(response.body());
             }
 
             @Override
             public void onFailure(Call<List<Recipe>> call, Throwable t) {
-
+                Log.d("Response failed with throwable : ", t.toString());
             }
         });
         return mRecipes;

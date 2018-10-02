@@ -12,6 +12,6 @@ import retrofit2.http.Query;
 public interface RecipeService {
 
     @GET(StaticContent.httpURL.searchAPI)
-    Call<List<Recipe>> listRecipes(@Query("key") String key, @Query("q") String Indianians);
+    Call<List<Recipe>> listRecipes(@Query("key") String key,@Query("q") String Indianians);
 
 }
