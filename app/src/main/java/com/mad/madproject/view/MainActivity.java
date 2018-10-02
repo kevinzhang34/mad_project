@@ -10,7 +10,7 @@ import android.widget.EditText;
 import com.mad.madproject.R;
 import com.mad.madproject.StaticContent;
 import com.mad.madproject.contract.MainContract;
-import com.mad.madproject.model.recipeRelated.Recipe;
+import com.mad.madproject.model.Recipe;
 import com.mad.madproject.model.recipeRelated.remote.RecipeRemoteDataSource;
 import com.mad.madproject.presenter.MainPresenter;
 

@@ -2,33 +2,30 @@ package com.mad.madproject.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.mad.madproject.StaticContent;
-import com.mad.madproject.model.recipeRelated.Recipe;
 
 import java.util.List;
 
 public class ResponseBody {
 
-    @SerializedName(StaticContent.Model.ResponseAttributes.COUNT)
-    private Integer mCount;
+    private Integer count;
 
-    @SerializedName(StaticContent.Model.ResponseAttributes.RECIPES)
-    private List<Recipe> mRecipes;
+    private List<Recipe> recipes;
 
     public ResponseBody(){}
 
-    public Integer getmCount() {
-        return mCount;
+    public Integer getCount() {
+        return count;
     }
 
-    public void setmCount(Integer mCount) {
-        this.mCount = mCount;
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
-    public List<Recipe> getmRecipes() {
-        return mRecipes;
+    public List<Recipe> getRecipes() {
+        return recipes;
     }
 
-    public void setmRecipes(List<Recipe> mRecipes) {
-        this.mRecipes = mRecipes;
+    public void setRecipes(List<Recipe> recipes) {
+        this.recipes = recipes;
     }
 }

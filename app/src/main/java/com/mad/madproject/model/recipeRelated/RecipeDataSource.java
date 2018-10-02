@@ -1,5 +1,7 @@
 package com.mad.madproject.model.recipeRelated;
 
+import com.mad.madproject.model.Recipe;
+
 import java.util.List;
 
 public interface RecipeDataSource {

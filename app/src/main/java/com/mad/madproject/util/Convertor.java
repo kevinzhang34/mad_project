@@ -1,6 +1,6 @@
 package com.mad.madproject.util;
 
-import com.mad.madproject.model.recipeRelated.Recipe;
+import com.mad.madproject.model.Recipe;
 import com.mad.madproject.model.ResponseBody;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class Convertor {
 
     public static List<Recipe> SResBodyToList(ResponseBody body) {
         List<Recipe> recipes = new ArrayList<>();
-        for (Recipe recipe: body.getmRecipes()) recipes.add(recipe);
+        for (Recipe recipe: body.getRecipes()) recipes.add(recipe);
         return recipes;
     }
 }

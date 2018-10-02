@@ -1,8 +1,9 @@
 package com.mad.madproject.model.recipeRelated.remote;
 
 import android.util.Log;
+import com.google.gson.Gson;
 import com.mad.madproject.StaticContent;
-import com.mad.madproject.model.recipeRelated.Recipe;
+import com.mad.madproject.model.Recipe;
 import com.mad.madproject.model.ResponseBody;
 import com.mad.madproject.model.recipeRelated.RecipeDataSource;
 import com.mad.madproject.serivce.RecipeService;
@@ -13,6 +14,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeRemoteDataSource implements RecipeDataSource {
@@ -42,8 +44,9 @@ public class RecipeRemoteDataSource implements RecipeDataSource {
         repos.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d("Response success with response body: ", String.valueOf(response.body().getmCount()));
-                callback.onRecipeLoaded(response.body().getmRecipes());
+                List<Recipe> recipes = response.body().getRecipes();
+                Log.d("Response success: one of the publisher is: ", recipes.get(4).getmPublisher());
+                /*callback.onRecipeLoaded(recipes);*/
             }
 
             @Override

@@ -1,4 +1,4 @@
-package com.mad.madproject.model.recipeRelated;
+package com.mad.madproject.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.mad.madproject.StaticContent;
