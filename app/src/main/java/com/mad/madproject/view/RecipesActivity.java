@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.mad.madproject.R;
 import com.mad.madproject.contract.RecipesContract;
-import com.mad.madproject.model.Recipe;
+import com.mad.madproject.model.recipeRelated.Recipe;
 import com.mad.madproject.util.Convertor;
 
 import java.util.List;

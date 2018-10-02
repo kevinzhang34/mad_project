@@ -11,6 +11,10 @@ public interface StaticContent {
 
     interface Model {
         String RECIPE = "recipe";
+        interface ResponseAttributes {
+            String COUNT = "count";
+            String RECIPES = "recipes";
+        }
 
         interface RecipeAttributes {
             String IMAGE_URL = "image_url";

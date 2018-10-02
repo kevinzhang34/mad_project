@@ -1,7 +1,7 @@
 package com.mad.madproject.presenter;
 
 import com.mad.madproject.contract.MainContract;
-import com.mad.madproject.model.Recipe;
+import com.mad.madproject.model.recipeRelated.Recipe;
 import com.mad.madproject.model.recipeRelated.RecipeDataSource;
 import com.mad.madproject.model.recipeRelated.remote.RecipeRemoteDataSource;
 
