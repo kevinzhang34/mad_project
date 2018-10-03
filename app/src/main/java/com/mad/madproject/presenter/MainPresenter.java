@@ -2,6 +2,7 @@ package com.mad.madproject.presenter;
 
 import com.mad.madproject.contract.MainContract;
 import com.mad.madproject.model.Recipe;
+import com.mad.madproject.model.RecipesIntentObject;
 import com.mad.madproject.model.recipeRelated.RecipeDataSource;
 import com.mad.madproject.model.recipeRelated.remote.RecipeRemoteDataSource;
 
@@ -39,7 +40,8 @@ public class MainPresenter implements MainContract.Presenter, RecipeDataSource.G
      */
     @Override
     public void onRecipeLoaded(List<Recipe> recipes) {
-        mView.getSearchResult(recipes);
+        RecipesIntentObject recipesIntentObject = new RecipesIntentObject(recipes);
+        mView.getSearchResult(recipesIntentObject);
     }
 
     @Override

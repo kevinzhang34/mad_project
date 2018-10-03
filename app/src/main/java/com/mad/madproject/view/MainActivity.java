@@ -11,6 +11,7 @@ import com.mad.madproject.R;
 import com.mad.madproject.StaticContent;
 import com.mad.madproject.contract.MainContract;
 import com.mad.madproject.model.Recipe;
+import com.mad.madproject.model.RecipesIntentObject;
 import com.mad.madproject.model.recipeRelated.remote.RecipeRemoteDataSource;
 import com.mad.madproject.presenter.MainPresenter;
 
@@ -43,10 +44,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     @Override
-    public void getSearchResult(List<Recipe> recipes) {
+    public void getSearchResult(RecipesIntentObject recipes) {
         Intent intent = new Intent(MainActivity.this,RecipesActivity.class);
+        Bundle bundle = new Bundle();
+        //sending an object via bundle, the object must be implementing serializable.
+        bundle.putSerializable(StaticContent.Model.RECIPES, recipes);
         intent.setClass(getApplicationContext(), RecipesActivity.class);
-        intent.putExtra(StaticContent.Model.RECIPE, (Serializable) recipes);
+        intent.putExtras(bundle);
         startActivity(intent);
     }
 
