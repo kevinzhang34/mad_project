@@ -3,6 +3,7 @@ package com.mad.madproject.model.recipeRelated.remote;
 import android.util.Log;
 import com.google.gson.Gson;
 import com.mad.madproject.StaticContent;
+import com.mad.madproject.exception.NoRecipeException;
 import com.mad.madproject.model.Recipe;
 import com.mad.madproject.model.ResponseBody;
 import com.mad.madproject.model.recipeRelated.RecipeDataSource;
@@ -21,9 +22,9 @@ public class RecipeRemoteDataSource implements RecipeDataSource {
 
     private static RecipeRemoteDataSource INSTANCE;
 
-    List<Recipe> mRecipes;
+    private List<Recipe> mRecipes;
 
-    Retrofit mRetrofit = new Retrofit
+    private Retrofit mRetrofit = new Retrofit
             .Builder()
             .baseUrl(StaticContent.httpURL.Httpapi)
             .addConverterFactory(GsonConverterFactory.create())
@@ -35,18 +36,29 @@ public class RecipeRemoteDataSource implements RecipeDataSource {
         return INSTANCE;
     }
 
+    public void setRecipes(List<Recipe> recipes) {
+        this.mRecipes = recipes;
+    }
+
+    public List<Recipe> getRecipes() {
+        return this.mRecipes;
+    }
+
     @Override
-    public List<Recipe> SearchByIngradians(String Ingradians, final GetRecipeCallback callback) {
+    public List<Recipe> SearchByIngradians(String Ingradians, final GetRecipeCallback callback) throws NoRecipeException{
+
         RecipeService request = mRetrofit.create(RecipeService.class);
-        Convertor convertor = new Convertor();
         Call<ResponseBody> repos = request.listRecipes(StaticContent.httpURL.apiKEY,Ingradians);
         //the enqueue method will send the request to the destination url.
         repos.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                List<Recipe> recipes = response.body().getRecipes();
-                Log.d("Response success: one of the publisher is: ", recipes.get(4).getmPublisher());
-                /*callback.onRecipeLoaded(recipes);*/
+                if (response.body().getCount() == 0) callback.onDataNotAvailable();
+                else {
+                    List<Recipe> recipes = response.body().getRecipes();
+                    setRecipes(recipes);
+                    callback.onRecipeLoaded(recipes);
+                }
             }
 
             @Override

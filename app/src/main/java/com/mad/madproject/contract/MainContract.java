@@ -2,14 +2,12 @@ package com.mad.madproject.contract;
 
 import com.mad.madproject.BasePresenter;
 import com.mad.madproject.BaseView;
-import com.mad.madproject.model.Recipe;
-import com.mad.madproject.model.RecipesIntentObject;
-
-import java.util.List;
+import com.mad.madproject.exception.NoRecipeException;
 
 public interface MainContract {
     interface View extends BaseView<Presenter> {
-        void getSearchResult(RecipesIntentObject recipes);
+        void getSearchResult();
+        void showNoRecipeException(NoRecipeException e);
     }
 
     interface Presenter extends BasePresenter {
