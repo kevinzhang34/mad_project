@@ -1,9 +1,11 @@
 package com.mad.madproject.view;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import com.mad.madproject.R;
@@ -18,7 +20,7 @@ import java.util.List;
 public class RecipesActivity extends AppCompatActivity implements RecipesContract.View {
 
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private MyRecipesRecyclerviewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecipesContract.Presenter  mPresenter;
 
@@ -51,5 +53,15 @@ public class RecipesActivity extends AppCompatActivity implements RecipesContrac
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new MyRecipesRecyclerviewAdapter(recipes);
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener(new MyRecipesRecyclerviewAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(RecipesActivity.this, DetailActivity.class);
+                intent.setClass(getApplicationContext(), RecipesActivity.class);
+
+                //intent.putExtras();
+                startActivity(intent);
+            }
+        });
     }
 }

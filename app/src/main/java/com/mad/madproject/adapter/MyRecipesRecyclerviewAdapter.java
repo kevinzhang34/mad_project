@@ -6,32 +6,56 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.mad.madproject.R;
 import com.mad.madproject.model.Recipe;
 import com.mad.madproject.util.Convertor;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 /**
  * custom recyclerview adapter
  */
-public class MyRecipesRecyclerviewAdapter extends RecyclerView.Adapter<MyRecipesRecyclerviewAdapter.MyViewHolder> {
+public class MyRecipesRecyclerviewAdapter extends RecyclerView.Adapter<MyRecipesRecyclerviewAdapter.MyViewHolder> implements View.OnClickListener{
 
     private Recipe[] mRecipes;
+    private OnItemClickListener mClickListener;
+
+    @Override
+    public void onClick(View v) {
+        mClickListener.onItemClick(v,0);
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        mClickListener = onItemClickListener;
+    }
 
     /**
      * this class holds one view that is waited to be recycled.
      */
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         View mView;
         TextView mTextView;
+        ImageView mImageView;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
             mTextView = (TextView) mView.findViewById(R.id.item_tv);
+            mImageView =(ImageView) mView.findViewById(R.id.image_Imv);
+        }
+
+
+        @Override
+        public void onClick(View view) {
+            mClickListener.onItemClick(view,getPosition());
         }
     }
 
@@ -62,7 +86,7 @@ public class MyRecipesRecyclerviewAdapter extends RecyclerView.Adapter<MyRecipes
     @Override
     public void onBindViewHolder(@NonNull MyRecipesRecyclerviewAdapter.MyViewHolder myViewHolder, int i) {
         myViewHolder.mTextView.setText(mRecipes[i].getmTitle());
-        Log.d("recipe's title: ", mRecipes[i].getmTitle());
+        Picasso.get().load(mRecipes[i].getmImageURL()).into(myViewHolder.mImageView);
     }
 
     /**
