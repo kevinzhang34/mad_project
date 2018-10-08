@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Convertor {
-    public Convertor(){}
 
     public static String convertListToString(List<String> strings) {
         StringBuilder stringBuilder = new StringBuilder();

@@ -14,5 +14,5 @@ public interface RecipeDataSource {
         void onDataNotAvailable();
     }
 
-    List<Recipe> SearchByIngradians(String Ingradians, GetRecipeCallback callback) throws NoRecipeException;
+    void retriveRecipes(String Ingradians, GetRecipeCallback callback) throws NoRecipeException;
 }

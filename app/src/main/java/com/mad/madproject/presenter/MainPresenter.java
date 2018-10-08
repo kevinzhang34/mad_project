@@ -8,7 +8,7 @@ import com.mad.madproject.model.recipeRelated.remote.RecipeRemoteDataSource;
 
 import java.util.List;
 
-public class MainPresenter implements MainContract.Presenter, RecipeDataSource.GetRecipeCallback {
+public class MainPresenter implements MainContract.Presenter {
 
     private final RecipeDataSource mRecipeRepository;
 
@@ -23,7 +23,25 @@ public class MainPresenter implements MainContract.Presenter, RecipeDataSource.G
 
     @Override
     public void getSearchRecipies(String ingredients) {
-        mRecipeRepository.SearchByIngradians(ingredients, this);
+        mRecipeRepository.retriveRecipes(ingredients, new RecipeDataSource.GetRecipeCallback() {
+
+            /**
+             * called after recipes are loaded
+             * @param recipes
+             */
+            @Override
+            public void onRecipeLoaded(List<Recipe> recipes) {
+                mView.getSearchResult();
+            }
+
+            /**
+             * called after recipes are not available due to vary reasons.
+             */
+            @Override
+            public void onDataNotAvailable() {
+                mView.showNoRecipeException(new NoRecipeException());
+            }
+        });
     }
 
     @Override
@@ -34,17 +52,4 @@ public class MainPresenter implements MainContract.Presenter, RecipeDataSource.G
     @Override
     public void start(){}
 
-    /**
-     * callback method of the recipe callback.
-     * @param recipes
-     */
-    @Override
-    public void onRecipeLoaded(List<Recipe> recipes) {
-        mView.getSearchResult();
-    }
-
-    @Override
-    public void onDataNotAvailable() {
-        mView.showNoRecipeException(new NoRecipeException());
-    }
 }

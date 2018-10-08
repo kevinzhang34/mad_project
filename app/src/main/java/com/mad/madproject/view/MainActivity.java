@@ -79,8 +79,4 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public void setPresenter(MainContract.Presenter presenter) {
         mPresenter = presenter;
     }
-
-
-
-
 }
