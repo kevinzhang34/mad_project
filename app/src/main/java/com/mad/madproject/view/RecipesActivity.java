@@ -21,7 +21,6 @@ public class RecipesActivity extends AppCompatActivity implements RecipesContrac
 
     private RecyclerView mRecyclerView;
     private MyRecipesRecyclerviewAdapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
     private RecipesContract.Presenter  mPresenter;
 
     /**
@@ -32,14 +31,10 @@ public class RecipesActivity extends AppCompatActivity implements RecipesContrac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sec);
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(mAdapter);
+
         TextView textview = (TextView) findViewById(R.id.resultTV);
         mPresenter = new RecipesPresenter(RecipeRemoteDataSource.getInstance(), this);
         mPresenter.retriveRecipes();
-
     }
 
     @Override
@@ -49,19 +44,9 @@ public class RecipesActivity extends AppCompatActivity implements RecipesContrac
 
     @Override
     public void displayAllRecipes(List<Recipe> recipes) {
-        mLayoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new MyRecipesRecyclerviewAdapter(recipes);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new MyRecipesRecyclerviewAdapter(recipes, this);
         mRecyclerView.setAdapter(mAdapter);
-        mAdapter.setOnItemClickListener(new MyRecipesRecyclerviewAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent intent = new Intent(RecipesActivity.this, DetailActivity.class);
-                intent.setClass(getApplicationContext(), RecipesActivity.class);
-
-                //intent.putExtras();
-                startActivity(intent);
-            }
-        });
     }
 }

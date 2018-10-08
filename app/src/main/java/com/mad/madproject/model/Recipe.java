@@ -3,7 +3,12 @@ package com.mad.madproject.model;
 import com.google.gson.annotations.SerializedName;
 import com.mad.madproject.StaticContent;
 
-public class Recipe{
+import java.io.Serializable;
+
+public class Recipe implements Serializable{
+
+    @SerializedName(StaticContent.Model.RecipeAttributes.RECIPE_ID)
+    private String mRecipeId;
 
     @SerializedName(StaticContent.Model.RecipeAttributes.IMAGE_URL)
     private String mImageURL;
@@ -27,7 +32,15 @@ public class Recipe{
     private String mSocialRank;
 
     @SerializedName(StaticContent.Model.RecipeAttributes.INGREDIENTS)
-    private String mIngredients;
+    private String[] mIngredients;
+
+    public String getRecipeId() {
+        return mRecipeId;
+    }
+
+    public void setRecipeId(String id) {
+        this.mRecipeId = id;
+    }
 
     public String getmImageURL() {
         return mImageURL;
@@ -85,11 +98,11 @@ public class Recipe{
         this.mSocialRank = mSocialRank;
     }
 
-    public String getmIngredients() {
+    public String[] getmIngredients() {
         return mIngredients;
     }
 
-    public void setmIngredients(String mIngredients) {
+    public void setmIngredients(String[] mIngredients) {
         this.mIngredients = mIngredients;
     }
 

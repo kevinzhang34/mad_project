@@ -3,6 +3,7 @@ package com.mad.madproject.model.recipeRelated.remote;
 import android.util.Log;
 import com.mad.madproject.StaticContent;
 import com.mad.madproject.exception.NoRecipeException;
+import com.mad.madproject.model.OneRecipeReponseBody;
 import com.mad.madproject.model.Recipe;
 import com.mad.madproject.model.ResponseBody;
 import com.mad.madproject.model.recipeRelated.RecipeDataSource;
@@ -67,4 +68,26 @@ public class RecipeRemoteDataSource implements RecipeDataSource {
             });
         }
     }
+
+    @Override
+    public void retrieveRecipeDetail(String id, final GetRecipeDetailCallback callback) throws NoRecipeException {
+        RecipeService request = mRetrofit.create(RecipeService.class);
+        Call<OneRecipeReponseBody> repos = request.findRecipeDetail(StaticContent.httpURL.apiKEY, id);
+        repos.enqueue(new Callback<OneRecipeReponseBody>() {
+
+            @Override
+            public void onResponse(Call<OneRecipeReponseBody> call, Response<OneRecipeReponseBody> response) {
+                if (response.body() == null) callback.onDataNotAvailable();
+                else callback.onDetailLoaded(response.body().getmRecipt());
+            }
+
+            @Override
+            public void onFailure(Call<OneRecipeReponseBody> call, Throwable t) {
+                Log.d("Response failed with throwable: ", t.toString());
+
+            }
+        });
+    }
+
+
 }

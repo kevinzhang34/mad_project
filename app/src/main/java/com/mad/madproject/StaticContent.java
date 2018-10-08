@@ -27,6 +27,7 @@ public interface StaticContent {
             String PUBLISHER_URL = "publisher_url";
             String SOCIAL_RANK = "social_rank";
             String INGREDIENTS = "ingredients";
+            String RECIPE_ID = "recipe_id";
         }
     }
 }

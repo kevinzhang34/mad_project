@@ -1,16 +1,20 @@
 package com.mad.madproject.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.mad.madproject.R;
 import com.mad.madproject.model.Recipe;
 import com.mad.madproject.util.Convertor;
+import com.mad.madproject.view.DetailActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -18,28 +22,15 @@ import java.util.List;
 /**
  * custom recyclerview adapter
  */
-public class MyRecipesRecyclerviewAdapter extends RecyclerView.Adapter<MyRecipesRecyclerviewAdapter.MyViewHolder> implements View.OnClickListener{
+public class MyRecipesRecyclerviewAdapter extends RecyclerView.Adapter<MyRecipesRecyclerviewAdapter.MyViewHolder> {
 
     private Recipe[] mRecipes;
-    private OnItemClickListener mClickListener;
-
-    @Override
-    public void onClick(View v) {
-        mClickListener.onItemClick(v,0);
-    }
-
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position);
-    }
-
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        mClickListener = onItemClickListener;
-    }
+    private Context mContext;
 
     /**
      * this class holds one view that is waited to be recycled.
      */
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class MyViewHolder extends RecyclerView.ViewHolder{
 
         View mView;
         TextView mTextView;
@@ -51,16 +42,11 @@ public class MyRecipesRecyclerviewAdapter extends RecyclerView.Adapter<MyRecipes
             mTextView = (TextView) mView.findViewById(R.id.item_tv);
             mImageView =(ImageView) mView.findViewById(R.id.image_Imv);
         }
-
-
-        @Override
-        public void onClick(View view) {
-            mClickListener.onItemClick(view,getPosition());
-        }
     }
 
-    public MyRecipesRecyclerviewAdapter(List<Recipe> recipes) {
+    public MyRecipesRecyclerviewAdapter(List<Recipe> recipes, Context context) {
         this.mRecipes = Convertor.convertListToArray(recipes);
+        this. mContext = context;
     }
 
     /**
@@ -87,6 +73,15 @@ public class MyRecipesRecyclerviewAdapter extends RecyclerView.Adapter<MyRecipes
     public void onBindViewHolder(@NonNull MyRecipesRecyclerviewAdapter.MyViewHolder myViewHolder, int i) {
         myViewHolder.mTextView.setText(mRecipes[i].getmTitle());
         Picasso.get().load(mRecipes[i].getmImageURL()).into(myViewHolder.mImageView);
+        final int ipassed = i;
+        myViewHolder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, DetailActivity.class);
+                intent.putExtra("id", mRecipes[ipassed].getRecipeId());
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     /**
